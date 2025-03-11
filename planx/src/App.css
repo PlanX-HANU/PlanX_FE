@@ -7,8 +7,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: -o-linear-gradient(red);
-    
+    background: linear-gradient(4deg, black, transparent);
 }
 *{
     margin: 0;
@@ -17,7 +16,7 @@
 }
 .wrapper{
     width: 420px;
-    background: transparent;
+    background: rgb(230, 223, 223);
     color: white;
     padding: 30px 40px;
     border: 2px solid grey;
@@ -69,7 +68,8 @@
     display: flex;
     justify-content: center;
     font-size: 14.5px;
-    margin: -15 0 15px;
+    margin-bottom: 10px;
+    
 }
 .wrapper button{
     width: 100%;

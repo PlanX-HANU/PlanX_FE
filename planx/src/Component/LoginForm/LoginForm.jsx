@@ -9,8 +9,8 @@ const LoginForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const validateEmail = (email) => {
-    if (email.length < 5) {
-      return "Email phải có ít nhất 5 ký tự";
+    if (email.length < 4) {
+      return "Email phải có ít nhất 4 ký tự";
     } else if (!email.includes('@')) {
       return "Email phải chứa '@'";
     } 
@@ -18,8 +18,8 @@ const LoginForm = () => {
   };
 
   const validatePassword = (password) => {
-    if (password.length < 6) {
-      return "Mật khẩu phải có ít nhất 6 ký tự";
+    if (password.length < 4) {
+      return "Mật khẩu phải có ít nhất 4 ký tự";
     }
     return '';
   };
@@ -46,7 +46,7 @@ const LoginForm = () => {
 
     if (!emailErr && !passwordErr) {
       try {
-        const response = await fetch("http://localhost:8080/account/login", {
+        const response = await fetch("http://localhost:4000/account/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
@@ -57,7 +57,7 @@ const LoginForm = () => {
         }
 
         const data = await response.json();
-        localStorage.setItem("token", data.token); // Lưu token vào localStorage
+        localStorage.setItem("token", data.token); 
         setIsLoggedIn(true);
         alert("Đăng nhập thành công!");
       } catch (error) {
@@ -109,10 +109,7 @@ const LoginForm = () => {
             </div>
             {passwordError && <p className="error">{passwordError}</p>}
 
-            <div className="sign-key">
-              <FaKey className="icon-key" />
-              <a href="#">Sign in with passkey</a>
-            </div>
+      
 
             <div className="remember-forgot">
               <a href="#">Forgot password?</a>
