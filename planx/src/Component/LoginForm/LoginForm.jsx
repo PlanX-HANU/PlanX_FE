@@ -10,16 +10,16 @@ const LoginForm = () => {
 
   const validateEmail = (email) => {
     if (email.length < 4) {
-      return "Email phải có ít nhất 4 ký tự";
+      return "Email must be at least 4 characters";
     } else if (!email.includes('@')) {
-      return "Email phải chứa '@'";
+      return "Email must contain '@'";
     } 
     return '';
   };
 
   const validatePassword = (password) => {
-    if (password.length < 4) {
-      return "Mật khẩu phải có ít nhất 4 ký tự";
+    if (password.length < 6) {
+      return "Password must be at least 6 characters";
     }
     return '';
   };
@@ -43,32 +43,36 @@ const LoginForm = () => {
     const passwordErr = validatePassword(password);
     setEmailError(emailErr);
     setPasswordError(passwordErr);
-
+  
     if (!emailErr && !passwordErr) {
       try {
-        const response = await fetch("http://localhost:4000/account/login", {
+        const response = await fetch("http://localhost:4000/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
         });
-
+  
         if (!response.ok) {
-          throw new Error("Đăng nhập thất bại!");
+          console.log(email)
+          throw new Error("Login failed!");
         }
-
+  
         const data = await response.json();
-        localStorage.setItem("token", data.token); 
+        localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("firstAccessToken", data.firstAccessToken);
+  
         setIsLoggedIn(true);
-        alert("Đăng nhập thành công!");
+        alert("Login successful!");
       } catch (error) {
-        console.error("Lỗi đăng nhập:", error);
-        alert("Lỗi đăng nhập: " + error.message);
+        console.error("Login error:", error);
+        alert("Login error: " + error.message);
       }
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("firstAccessToken");
     setIsLoggedIn(false);
     alert("Bạn đã đăng xuất!");
   };
