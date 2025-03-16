@@ -87,7 +87,7 @@ const LoginForm = () => {
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <h1>Account Management</h1>
+            <h1>Plan X</h1>
             <div className="input-box">
               <input
                 type="text"
